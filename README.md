@@ -3,10 +3,14 @@
 run docker-compose:
 - docker-compose -f docker-compose.yml up
 
-Run redis
+Access redis
 - docker container exec -it redis /bin/sh
 - redis-cli -h localhost
 
-Run postgres
-- docker container exec -it postgres /bin/sh
-- psql -U postgres
+Access postgres
+- docker container exec -it database /bin/sh
+
+Run app Production mode:
+- docker-compose -f docker-compose.yml up
+- npm run build
+- npm run start:prod
