@@ -10,6 +10,9 @@ Access redis
 Access postgres
 - docker container exec -it database /bin/sh
 
+Run unit test:
+- npm run test
+
 Run app Production mode:
 - docker-compose -f docker-compose.yml up
 - npm run build
