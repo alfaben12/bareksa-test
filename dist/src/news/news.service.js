@@ -12,12 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NewsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const redis_service_1 = require("../redis/redis.service");
 const topic_entity_1 = require("../topics/entities/topic.entity");
+const redisKeyPrefix = "news";
 let NewsService = class NewsService {
-    constructor(prismaService) {
+    constructor(prismaService, redisService) {
         this.prismaService = prismaService;
+        this.redisService = redisService;
     }
-    create(createNewsDto) {
+    async create(createNewsDto) {
+        const redisKey = `${redisKeyPrefix}:all`;
+        const cache = await this.redisService.get(redisKey);
+        if (cache) {
+            await this.redisService.del(redisKey);
+        }
         return this.prismaService.news.create({
             data: {
                 topicId: +createNewsDto.topicId,
@@ -29,15 +37,27 @@ let NewsService = class NewsService {
             }
         });
     }
-    findAll() {
-        return this.prismaService.news.findMany({
+    async findAll() {
+        const redisKey = `${redisKeyPrefix}:all`;
+        const cache = await this.redisService.get(redisKey);
+        if (cache) {
+            return JSON.parse(cache);
+        }
+        const results = await this.prismaService.news.findMany({
             include: {
                 topic: true
             }
         });
+        await this.redisService.set(redisKey, JSON.stringify(results));
+        return results;
     }
-    findOne(id) {
-        return this.prismaService.news.findUnique({
+    async findOne(id) {
+        const redisKey = `${redisKeyPrefix}:${id}`;
+        const cache = await this.redisService.get(redisKey);
+        if (cache) {
+            return JSON.parse(cache);
+        }
+        const result = await this.prismaService.news.findUnique({
             where: {
                 id
             },
@@ -45,8 +65,15 @@ let NewsService = class NewsService {
                 topic: true
             }
         });
+        await this.redisService.set(redisKey, JSON.stringify(result));
+        return result;
     }
-    update(id, updateNewsDto) {
+    async update(id, updateNewsDto) {
+        const redisKey = `${redisKeyPrefix}:all`;
+        const cache = await this.redisService.get(redisKey);
+        if (cache) {
+            await this.redisService.del(redisKey);
+        }
         return this.prismaService.news.update({
             where: {
                 id
@@ -61,7 +88,12 @@ let NewsService = class NewsService {
             }
         });
     }
-    remove(id) {
+    async remove(id) {
+        const redisKey = `${redisKeyPrefix}:${id}`;
+        const cache = await this.redisService.get(redisKey);
+        if (cache) {
+            await this.redisService.del(redisKey);
+        }
         return this.prismaService.news.delete({
             where: {
                 id
@@ -71,7 +103,8 @@ let NewsService = class NewsService {
 };
 NewsService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        redis_service_1.RedisService])
 ], NewsService);
 exports.NewsService = NewsService;
 //# sourceMappingURL=news.service.js.map

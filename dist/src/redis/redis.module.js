@@ -6,20 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NewsModule = void 0;
+exports.RedisModule = void 0;
 const common_1 = require("@nestjs/common");
-const news_service_1 = require("./news.service");
-const news_controller_1 = require("./news.controller");
-const topics_module_1 = require("../topics/topics.module");
-const redis_module_1 = require("../redis/redis.module");
-let NewsModule = class NewsModule {
+const redis_service_1 = require("./redis.service");
+let RedisModule = class RedisModule {
 };
-NewsModule = __decorate([
+RedisModule = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Module)({
-        imports: [topics_module_1.TopicsModule, redis_module_1.RedisModule],
-        controllers: [news_controller_1.NewsController],
-        providers: [news_service_1.NewsService],
+        providers: [redis_service_1.RedisService],
+        exports: [redis_service_1.RedisService]
     })
-], NewsModule);
-exports.NewsModule = NewsModule;
-//# sourceMappingURL=news.module.js.map
+], RedisModule);
+exports.RedisModule = RedisModule;
+//# sourceMappingURL=redis.module.js.map

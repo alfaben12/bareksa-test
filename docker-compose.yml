@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:6
+    ports:
+      - 6379:6379
+  database:
+    container_name: database
+    image: postgres:latest
+    environment:
+      - 'POSTGRES_USER=alfabben'
+      - 'POSTGRES_PASSWORD=thariqalfa'
+      - 'POSTGRES_DB=bareksa'
+    ports:
+      - '7000:5432'

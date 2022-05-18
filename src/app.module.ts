@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { TopicsModule } from './topics/topics.module';
 import { NewsModule } from './news/news.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { NewsModule } from './news/news.module';
     }),
     PrismaModule,
     TopicsModule,
-    NewsModule
+    NewsModule,
+    RedisModule
   ],
   controllers: [AppController],
   providers: [AppService],

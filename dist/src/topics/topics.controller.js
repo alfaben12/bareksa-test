@@ -21,7 +21,7 @@ let TopicsController = class TopicsController {
     constructor(topicsService) {
         this.topicsService = topicsService;
     }
-    create(createTopicDto) {
+    async create(createTopicDto) {
         return this.topicsService.create(createTopicDto);
     }
     findAll() {
@@ -46,9 +46,6 @@ let TopicsController = class TopicsController {
         if (!result) {
             return new common_1.HttpException(" not available", common_1.HttpStatus.NOT_FOUND);
         }
-        if (result.news.length > 0) {
-            return new common_1.HttpException("Cannot delete topic, because has news!", common_1.HttpStatus.BAD_REQUEST);
-        }
         return this.topicsService.remove(+id);
     }
 };
@@ -57,7 +54,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_topic_dto_1.CreateTopicDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TopicsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),

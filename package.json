@@ -43,6 +43,7 @@
     "class-validator": "^0.13.2",
     "dotenv-cli": "^4.1.1",
     "prettier-sql": "^5.1.0",
+    "redis": "^4.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
@@ -91,6 +92,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    }
   }
 }

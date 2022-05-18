@@ -11,11 +11,6 @@ export class NewsController {
 
   @Post()
   async create(@Body() createNewsDto: CreateNewsDto) {
-    const validationTopic = await this.topicsService.findOne(+createNewsDto.topicId)
-    if (!validationTopic) {
-      return new HttpException("Topic not available", HttpStatus.NOT_FOUND)
-    }
-
     if (![NewsStatus.deleted, NewsStatus.draft, NewsStatus.publish].includes(createNewsDto.status)) {
       return new HttpException("Invalid Status", HttpStatus.BAD_REQUEST)
     }

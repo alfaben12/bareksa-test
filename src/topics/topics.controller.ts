@@ -8,7 +8,7 @@ export class TopicsController {
   constructor(private readonly topicsService: TopicsService) { }
 
   @Post()
-  create(@Body() createTopicDto: CreateTopicDto) {
+  async create(@Body() createTopicDto: CreateTopicDto) {
     return this.topicsService.create(createTopicDto);
   }
 
@@ -42,10 +42,6 @@ export class TopicsController {
     const result = await this.topicsService.findOne(+id);
     if (!result) {
       return new HttpException(" not available", HttpStatus.NOT_FOUND)
-    }
-
-    if (result.news.length > 0) {
-      return new HttpException("Cannot delete topic, because has news!", HttpStatus.BAD_REQUEST)
     }
 
     return this.topicsService.remove(+id);

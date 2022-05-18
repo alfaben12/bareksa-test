@@ -25,10 +25,6 @@ let NewsController = class NewsController {
         this.topicsService = topicsService;
     }
     async create(createNewsDto) {
-        const validationTopic = await this.topicsService.findOne(+createNewsDto.topicId);
-        if (!validationTopic) {
-            return new common_1.HttpException("Topic not available", common_1.HttpStatus.NOT_FOUND);
-        }
         if (![client_1.NewsStatus.deleted, client_1.NewsStatus.draft, client_1.NewsStatus.publish].includes(createNewsDto.status)) {
             return new common_1.HttpException("Invalid Status", common_1.HttpStatus.BAD_REQUEST);
         }

@@ -1,4 +1,5 @@
 import { NewsStatus, News } from "@prisma/client";
+import { TopicEntity } from "src/topics/entities/topic.entity";
 export declare class NewsEntity implements News {
     id: number;
     topicId: number;
@@ -9,5 +10,5 @@ export declare class NewsEntity implements News {
     status: NewsStatus;
     createdAt: Date;
     updatedAt: Date;
-    news?: News;
+    topic?: TopicEntity;
 }

@@ -14,6 +14,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const config_1 = require("@nestjs/config");
 const topics_module_1 = require("./topics/topics.module");
 const news_module_1 = require("./news/news.module");
+const redis_module_1 = require("./redis/redis.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -24,7 +25,8 @@ AppModule = __decorate([
             }),
             prisma_module_1.PrismaModule,
             topics_module_1.TopicsModule,
-            news_module_1.NewsModule
+            news_module_1.NewsModule,
+            redis_module_1.RedisModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -10,11 +10,12 @@ exports.TopicsModule = void 0;
 const common_1 = require("@nestjs/common");
 const topics_service_1 = require("./topics.service");
 const topics_controller_1 = require("./topics.controller");
-const news_service_1 = require("../news/news.service");
+const redis_module_1 = require("../redis/redis.module");
 let TopicsModule = class TopicsModule {
 };
 TopicsModule = __decorate([
     (0, common_1.Module)({
+        imports: [redis_module_1.RedisModule],
         controllers: [topics_controller_1.TopicsController],
         providers: [topics_service_1.TopicsService],
         exports: [topics_service_1.TopicsService]
