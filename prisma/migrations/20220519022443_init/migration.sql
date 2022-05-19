@@ -4,8 +4,10 @@ CREATE TYPE "NewsStatus" AS ENUM ('draft', 'deleted', 'publish');
 -- CreateTable
 CREATE TABLE "Topic" (
     "id" SERIAL NOT NULL,
-    "name" VARCHAR(100) NOT NULL,
+    "title" VARCHAR(100) NOT NULL,
     "body" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "Topic_pkey" PRIMARY KEY ("id")
 );
@@ -19,6 +21,8 @@ CREATE TABLE "News" (
     "image" TEXT NOT NULL,
     "tags" TEXT[],
     "status" "NewsStatus" NOT NULL DEFAULT E'draft',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
 
     CONSTRAINT "News_pkey" PRIMARY KEY ("id")
 );

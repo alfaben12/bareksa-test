@@ -15,11 +15,14 @@ Run unit test:
 
 Run app Production mode:
 - docker-compose -f docker-compose.yml up
+- npm run migrate:dev
 - open new terminal
 - npm run build
 - npm run start:prod
 
 Run app Development mode:
 - docker-compose -f docker-compose.yml up
+- npm run migrate:dev
+- npx prisma db seed (if needed. ref on prisma/README.md)
 - open new terminal
 - npm run start:dev
