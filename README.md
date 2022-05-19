@@ -15,5 +15,11 @@ Run unit test:
 
 Run app Production mode:
 - docker-compose -f docker-compose.yml up
+- open new terminal
 - npm run build
 - npm run start:prod
+
+Run app Development mode:
+- docker-compose -f docker-compose.yml up
+- open new terminal
+- npm run start:dev

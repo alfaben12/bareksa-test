@@ -34,4 +34,19 @@ export class RedisService {
         const value = await client.del(key);
         return value;
     }
+
+    async delWithPrefix(key: RedisCommandArgument): Promise<any> {
+        const isOpen = client.isOpen;
+        if (!isOpen) {
+            await client.connect()
+        }
+
+        const keys = await client.keys(key);
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            await client.del(key)
+        }
+
+        return true;
+    }
 }

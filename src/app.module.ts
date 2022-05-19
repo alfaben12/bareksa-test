@@ -13,7 +13,7 @@ import { RedisModule } from './redis/redis.module';
     // prod = .production.env
     // staging = .staging.env
     ConfigModule.forRoot({
-      envFilePath: '.development.env',
+      envFilePath: '.production.env',
     }),
     PrismaModule,
     TopicsModule,

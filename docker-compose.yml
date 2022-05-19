@@ -6,6 +6,7 @@ services:
     image: redis:6
     ports:
       - 6379:6379
+
   database:
     container_name: database
     image: postgres:latest
